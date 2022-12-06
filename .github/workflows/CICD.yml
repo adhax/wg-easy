@@ -5,19 +5,25 @@ on:
     branches:
       - master
       - production
-  pull_request:
+  workflow_dispatch:
 
 jobs:
-  lint:
-    name: Lint
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '14'
+          node-version: '16'
 
       - run: |
           cd src
           npm ci
+  lint:
+    name: Lint
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
           npm run lint
