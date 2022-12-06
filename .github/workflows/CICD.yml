@@ -22,9 +22,16 @@ jobs:
           npm ci
   lint:
     name: Lint
-    needs: build
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - run: |
           cd src
           npm run lint
+  hi:
+    name: Lint
+    needs: [lint]
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo 'hello world'
